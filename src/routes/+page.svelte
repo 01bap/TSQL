@@ -9,7 +9,7 @@
   <div class="hero-content text-center text-neutral-content">
     <div class="max-w-md">
       <h1 class="mb-5 text-5xl font-bold">Welcome to ...</h1>
-      <button class="btn btn-primary text-xl">Sign in</button>
+      <a href="./home"><button class="btn btn-primary text-xl">Sign in</button></a>
     </div>
   </div>
 </div>
