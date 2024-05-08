@@ -1,10 +1,10 @@
-const express = require('express');
-const mssql = require('mssql');
-const cors = require('cors');
-const queries = require('./queries'); // Importieren Sie das Modul mit den SQL-Abfragen
+import { Router } from 'express';
+import { connect, query, close } from 'mssql';
+import cors from 'cors';
+import { getAllItems } from './queries';
 
-const router = express.Router();
-// Konfiguration für die Verbindung zur SQL Server-Datenbank
+const router = Router();
+
 const config = {
   user: 'swb4',
   password: 'swb4',
@@ -21,17 +21,19 @@ router.use(cors());
 router.get('/api/update', async (req, res) => {
     console.log("Update");
     try {
-      mssql.connect(config);
+      await connect(config);
       
-      const result = await mssql.query(queries.getAllItems);
+      const result = await query(getAllItems);
+      console.log("Update:",result)
   
       res.json(result.recordset);
     } catch (error) {
       console.error('SQL error:', error);
       res.status(500).send('Internal server error');
     } finally {
-      await mssql.close();
+      await close();
     }
 });
 
-module.exports = router;
+// export default router;
+export default router;

@@ -1,6 +1,6 @@
 # TSQL
 
- A project for db2.
+A project for db2.
 
 ## create-svelte
 

@@ -1,6 +1,8 @@
 const express = require('express');
 const mssql = require('mssql');
 const cors = require('cors');
+// const getProducts = require('./modules/getProducts.js');
+import getProducts from "./modules/getProducts.js";
 
 const app = express();
 const port = 3000;
@@ -19,11 +21,13 @@ const config = {
 
 app.use(cors());
 
+app.use('/api/update', getProducts);
+
 // API-Route für SQL-Abfrage
 app.get('/api/query', async (req, res) => {
   try {
     // Verbindung zur Datenbank herstellen
-    mssql.connect(config);
+    await mssql.connect(config);
 
     // SQL-Abfrage ausführen
     const result = await mssql.query('SELECT * FROM dbo.Rodriguez_grund');

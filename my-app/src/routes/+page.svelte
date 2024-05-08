@@ -1,7 +1,7 @@
 <style lang="postcss">
-  :global(html) {
-    /* background-color: theme(colors.slate.500); */
-  }
+    :global(html) {
+      //background-color: theme(colors.gray.700);
+    }
 </style>
 
 <div class="hero min-h-screen" style="background-image: url(bgi.jpg);" data-theme="night">
