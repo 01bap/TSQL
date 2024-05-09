@@ -1,38 +1,44 @@
 <script>
-    let data = new Array();
-  
-    async function fetchData() {
-      try {
-        console.log("AHDLHDL")
-        const response = await fetch('http://localhost:3000/api/query');
-        if (response.ok) {
-            data = await response.json();
-            console.log("Data:", data)
-        } else {
-            console.error('Failed to fetch data:', response.statusText);
-        }
-      } catch (error) {
-            console.error('Fetch error:', error);
+  import {createInventory, getInventory} from "$lib/api_querys.js";
+
+  let data = new Array();
+
+  async function fetchData() {
+    try {
+      console.log("AHDLHDL")
+      const response = await fetch('http://localhost:3000/api/query');
+      if (response.ok) {
+          data = await response.json();
+          console.log("Data:", data, data.name)
+      } else {
+          console.error('Failed to fetch data:', response.statusText);
       }
+    } catch (error) {
+          console.error('Fetch error:', error);
     }
-    async function test() {
-      try {
-        console.log("test")
-        const response = await fetch('http://localhost:3000/api/update');
-        if (response.ok) {
-            data = await response.json();
-            console.log("Data:", data)
-        } else {
-            console.error('Failed to fetch data:', response.statusText);
+  }
+  async function test() {
+    try {
+      console.log("test")
+      const response = await fetch('http://localhost:3000/api/getInventory');
+      if (response.ok) {
+        data = await response.json();
+        console.log("Data:", data,data.name)
+        if(data.name == "RequestError") {
+          console.log(data.originalError.info.message)
         }
-      } catch (error) {
-            console.error('Fetch error:', error);
+      } else {
+          console.error('Failed to fetch data:', response.statusText);
       }
+    } catch (error) {
+          console.error('Fetch error:', error);
     }
+  }
 </script>
 
 <button on:click={fetchData}>Daten abrufen</button>
-<button on:click={test}>Update</button>
+<button on:click={getInventory}>Update</button>
+<button on:click={createInventory}>Update</button>
 
 {#if data.length > 0}
 <ul>

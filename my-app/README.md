@@ -1,42 +1,17 @@
-# TSQL
+# TSQL - MY INVENTORY APP
 
 A project for db2.
 
-## create-svelte
+## Description
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+...
 
-### Creating a project
+### Run Project
 
-If you're seeing this, you've probably already done this step. Congrats!
+To load the dependancies just run `npm install` in the "server" and "my-app" directory.
+Start the server in the "server" directory by running `node ./server.js`. Make sure to be connected to the vpn than you should see a message in the terminal that the server is listening.
+To start the svelte frontend go to the "my-app" directory and execute `npm run dev` or `npm run build` to fully build the application.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-### Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-### Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
+***
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.

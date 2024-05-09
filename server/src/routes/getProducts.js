@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { connect, query, close } from 'mssql';
 import cors from 'cors';
-import { getAllItems } from './queries';
+import { getAllItems } from '../modules/queries.js';
 
 const router = Router();
 
