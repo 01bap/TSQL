@@ -1,5 +1,5 @@
 <script>
-  import {createInventory, getInventory} from "$lib/api_querys.js";
+  import {getInventory} from "$lib/api_querys.js";
 
   let data = new Array();
 
@@ -37,16 +37,15 @@
 </script>
 
 <button on:click={fetchData}>Daten abrufen</button>
-<button on:click={getInventory}>Update</button>
-<button on:click={createInventory}>Update</button>
+<button on:click={data = getInventory()}>Update</button>
 
 {#if data.length > 0}
-<ul>
+  <ul>
     {#each data as item}
-        <li>{item.grund}</li>
+      <li>{item.grund}</li>
     {/each}
-</ul>
+  </ul>
 {:else}
-    <p>Keine Daten vorhanden</p>
+  <p>Keine Daten vorhanden</p>
 {/if}
   

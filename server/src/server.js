@@ -32,23 +32,6 @@ app.get('/api/query', async (req, res) => {
   }
 });
 
-app.get('/api/update', async (req, res) => {
-  console.log("Update");
-  try {
-    await mssql.connect(config);
-    
-    const result = await mssql.query(queries.getAllItems);
-    console.log("Update:",result)
-
-    res.json(result.recordset);
-  } catch (error) {
-    console.error('SQL error:', error);
-    res.json(error);
-  } finally {
-    await mssql.close();
-  }
-});
-
 app.get('/api/getInventory', async (req, res) => {
   try {
     await mssql.connect(config);
@@ -57,7 +40,7 @@ app.get('/api/getInventory', async (req, res) => {
   } catch (error) {
     console.error('SQL error:', error);
     //res.json(error);
-    res.status(500).send('Internal server error');
+    res.status(500).send('Internal server error');    // Terminates the server
   } finally {
     await mssql.close();
   }
