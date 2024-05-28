@@ -1,5 +1,6 @@
 <style lang="postcss">
     :global(html) {
+      box-sizing: border-box;
       //background-color: theme(colors.gray.700);
     }
 </style>
@@ -10,6 +11,7 @@
     <div class="max-w-md">
       <h1 class="mb-5 text-5xl font-bold">Welcome to ...</h1>
       <a href="./home"><button class="btn btn-primary text-xl">Sign in</button></a>
+      <a href="./tests"><button class="btn btn-primary text-xl">Sign in</button></a>
     </div>
   </div>
 </div>

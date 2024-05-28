@@ -1,5 +1,5 @@
 <script>
-  import {getInventory, testSP} from "$lib/api_querys.js";
+  import {getInventory, testSP} from "$lib/api/api_querys.js";
 
   let data = new Array();
   let msg;
