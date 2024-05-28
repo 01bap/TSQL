@@ -1,7 +1,8 @@
 <script>
-  import {getInventory} from "$lib/api_querys.js";
+  import {getInventory, testSP} from "$lib/api_querys.js";
 
   let data = new Array();
+  let msg;
 
   async function fetchData() {
     try {
@@ -34,10 +35,16 @@
           console.error('Fetch error:', error);
     }
   }
+  async function testHW() {
+    let response = await testSP();
+    msg = response[0].MESSAGE;
+    // console.log(msg, msg[0], msg[0].MESSAGE)
+  }
 </script>
 
 <button on:click={fetchData}>Daten abrufen</button>
 <button on:click={data = getInventory()}>Update</button>
+<button on:click={testHW}>EXEC SP</button>
 
 {#if data.length > 0}
   <ul>
@@ -48,4 +55,6 @@
 {:else}
   <p>Keine Daten vorhanden</p>
 {/if}
+
+HALLO: {msg}
   

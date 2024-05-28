@@ -21,3 +21,17 @@ export async function getInventory() {
     }
     return -1;
 }
+
+export async function testSP() {
+    try {
+        const response = await fetch('http://localhost:3000/api/testSP');
+        if (response.ok) {
+            return await response.json();
+        } else {
+            console.error('Failed to fetch data:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+    return -1;
+}

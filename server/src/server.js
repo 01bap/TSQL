@@ -46,6 +46,27 @@ app.get('/api/getInventory', async (req, res) => {
   }
 });
 
+app.get('/api/testSP', async (req, res) => {
+  try {
+    await mssql.connect(config);
+    // const result = await mssql.query("exec dbo.Rodriguez_test;");
+
+    const request = new mssql.Request();
+    // Parameter an die Stored Procedure übergeben
+    // request.input('parameterName', sql.VarChar, 'parameterValue');
+    // Stored Procedure ausführen
+    const result = await request.execute('dbo.Rodriguez_test');
+
+    console.log(result)
+    res.json(result.recordset);
+  } catch (error) {
+    console.error('SQL error:', error);
+    res.status(500).send('Internal server error');    // Terminates the server
+  } finally {
+    await mssql.close();
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
