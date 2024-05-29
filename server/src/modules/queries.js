@@ -2,7 +2,7 @@ const InventoryInterface = "Rodriguez_Inventory";
 const ProductInterface = "Rodriguez_Product";
 
 const queries = {
-    createInventory: `CREATE TABLE ${InventoryInterface} (
+    createTables: `CREATE TABLE ${InventoryInterface} (
         id          int not null PRIMARY KEY,
         pid         int not null FOREIGN KEY REFERENCES ${ProductInterface} (id),
         timeStamp   smalldatetime not null,

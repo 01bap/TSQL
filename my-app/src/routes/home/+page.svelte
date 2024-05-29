@@ -1,15 +1,7 @@
 <script>
     import Inventory from "$lib/components/Inventory.svelte";
     import MainContent from "$lib/components/MainContent.svelte";
-    import globals from "$lib/globals.js";
-
-    let inventoryProduct;
-
-    $: {
-        globals.inventoryProduct.subscribe((value) => {
-            inventoryProduct = value;
-        });
-    }
+    import globals from "$lib/variables.js";
 </script>
 
 <div class="w-screen h-screen grid" id="Bestandslager">
@@ -17,7 +9,7 @@
         <Inventory/>
     </div>
     <div class="relative w-full h-full overflow-hidden">
-        <MainContent {inventoryProduct}/>
+        <MainContent/>
     </div>
 </div>
 

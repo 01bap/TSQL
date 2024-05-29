@@ -1,6 +1,5 @@
 <style lang="postcss">
     :global(html) {
-      box-sizing: border-box;
       //background-color: theme(colors.gray.700);
     }
 </style>
