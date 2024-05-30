@@ -1,26 +1,17 @@
 <script>
     import ProductDetails from "./ProductDetails.svelte";
-    import globals from "$lib/variables.js";
     import SearchProducts from "./SearchProducts.svelte";
     import NewProducts from "./NewProducts.svelte";
-
-    let detailedProduct = null;        // Contains asin
-
-    globals.detailedProduct.subscribe((value) => {
-        detailedProduct = value;
-    });
 </script>
 
 
 <div class="w-full h-full relative" id="MainContentParent">
     <div class="rounded-l-lg bg-base-100 relative w-full h-full overflow-clip flex" id="MainContentContainer">
-        <ProductDetails asin={detailedProduct}/>
-
-        <div class="h-full max-w-full grow">
+        <ProductDetails/>
+        <div class="h-full grow">
             <NewProducts/>
         </div>
-
-        <div class="h-full border-l">
+        <div class="h-full w-2/5 md:w-auto border-l shrink">
             <SearchProducts/>
         </div>
     </div>

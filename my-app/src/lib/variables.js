@@ -5,11 +5,15 @@ class globalVar {
         this.alertFadeIn = 1;            // In sec
         this.alertLiveTime = 3000;           // In millisec
         this.detailedProduct = writable("");     // Contains asin (Primary)
+        this.searching = writable(false);
         this.searchProducts = writable(null);        // Object of returned researched products
-        this.searchProduct = writable(null);        // Contains new product to be stored
+        this.searchProduct = writable(null);        // Contains to be stored product as new object
     }
     setdetailedProduct(detailedProduct) {
         this.detailedProduct.set(detailedProduct);
+    }
+    setsearching(searching) {
+        this.searching.set(searching);
     }
     setsearchProducts(searchProducts) {
         this.searchProducts.set(searchProducts);
@@ -19,8 +23,14 @@ class globalVar {
     }
 
     globalAlert(errormsg) {
+        try {
+            document.getElementById("globalAlertMessage").remove();
+        } catch (error) {
+        }
         const body = document.querySelector("body");
         const alert = document.createElement("div");
+
+        alert.id = "globalAlertMessage";
 
         alert.style.position = "fixed";
         alert.style.top = "0";
@@ -28,8 +38,10 @@ class globalVar {
         alert.style.transform = "translateX(-50%) translateY(-100%)";
         alert.style.display = "grid";
         alert.style.placeItems = "center";
-        alert.style.minHeight = "100px";
-        alert.style.minWidth = "300px";
+        alert.style.height = "100px";
+        alert.style.maxHeight = "20%";
+        alert.style.width = "300px";
+        alert.style.maxWidth = "80%";
         alert.style.border = "2px solid black";
         alert.style.borderRadius = "1em";
         alert.style.padding = "5px";

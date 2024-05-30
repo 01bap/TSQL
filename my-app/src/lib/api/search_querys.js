@@ -1,12 +1,13 @@
 import axios from "axios";
 
-export async function searchProducts(product, country) {
+export async function searchProducts(product, country, page) {
     const options = {
         method: 'GET',
         url: 'https://real-time-amazon-data.p.rapidapi.com/search',
         params: {
             query: product,
             country: country,
+            page: page,
             sort_by: 'RELEVANCE',
             product_condition: 'ALL'
         },

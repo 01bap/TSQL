@@ -1,7 +1,6 @@
 <script>
     import Inventory from "$lib/components/Inventory.svelte";
     import MainContent from "$lib/components/MainContent.svelte";
-    import globals from "$lib/variables.js";
 </script>
 
 <div class="w-screen h-screen grid" id="Bestandslager">
