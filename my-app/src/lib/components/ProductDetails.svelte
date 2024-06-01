@@ -20,6 +20,7 @@
     // Get details from db selecting where asin equal
 
     $: {
+        console.log(detailedProduct)
         toggleCard(detailedProduct);
     }
     onMount(() => {

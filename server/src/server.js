@@ -57,27 +57,32 @@ app.get('/api/createTables', async (req, res) => {
 });
 app.get('/api/addProduct', async (req, res) => {
   try {
-      await mssql.connect(config);
-      const request = new mssql.Request();
+    await mssql.connect(config);
+    const request = new mssql.Request();
 
-      const asin = req.query.asin || 'asin';
-      let title = req.query.title || 'title';
-      title = decodeURIComponent(title);
-      let price = req.query.price || 'price';
-      price = price.replace(',', '.');
-      const currency = req.query.currency || 'currency';
-      const country = req.query.country || 'country';
-      const previewLn = req.query.previewLn || 'previewLn';
+    let asin = req.query.asin || 'asin';
+    asin = decodeURIComponent(asin);
+    let title = req.query.title || 'title';
+    title = decodeURIComponent(title);
+    let price = req.query.price || 'price';
+    price = decodeURIComponent(price);
+    price = price.replace(',', '.');
+    let currency = req.query.currency || 'currency';
+    currency = decodeURIComponent(currency);
+    let country = req.query.country || 'country';
+    country = decodeURIComponent(country);
+    let previewLn = req.query.previewLn || 'previewLn';
+    previewLn = decodeURIComponent(previewLn);
 
-      request.input('asin', mssql.VarChar, asin);
-      request.input('title', mssql.Text, title);
-      request.input('price', mssql.Money, price);
-      request.input('currency', mssql.VarChar, currency);
-      request.input('country', mssql.Char, country);
-      request.input('previewLn', mssql.Text, previewLn);
+    request.input('asin', mssql.VarChar, asin);
+    request.input('title', mssql.Text, title);
+    request.input('price', mssql.Money, price);
+    request.input('currency', mssql.VarChar, currency);
+    request.input('country', mssql.Char, country);
+    request.input('previewLn', mssql.Text, previewLn);
 
-      let result = await request.execute(queries.SPaddProduct);
-      res.json(result.recordset)
+    let result = await request.execute(queries.SPaddProduct);
+    res.json(result.recordset)
   } catch (err) {
       console.error('SQL error', err);
       res.status(500).send(err.message);

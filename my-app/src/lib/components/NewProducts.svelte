@@ -59,7 +59,7 @@
 <!-- Waiting animation -->
 {#if searching == true}
     <div class="p-2 flex flex-col gap-2 overflow-y-scroll">
-        {#each new Array(4) as _}
+        {#each new Array(6) as _}
             <div class="flex flex-col gap-4 w-full">
                 <div class="flex gap-4 items-center">
                     <div class="skeleton w-16 h-16 rounded-full shrink-0"></div>

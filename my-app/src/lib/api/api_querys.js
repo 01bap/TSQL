@@ -57,8 +57,13 @@ export async function testConnection() {
 }
 export async function addProduct(asin, title, price, currency, country, previewLn) {
     try {
+        const _asin = encodeURIComponent(asin);
         const _title = encodeURIComponent(title);
-        const query = `http://localhost:3000/api/addProduct?asin=${asin}&title=${_title}&price=${price}&currency=${currency}&country=${country}&previewLn=${previewLn}`;
+        const _price = encodeURIComponent(price);
+        const _currency = encodeURIComponent(currency);
+        const _country = encodeURIComponent(country);
+        const _previewLn = encodeURIComponent(previewLn);
+        const query = `http://localhost:3000/api/addProduct?asin=${_asin}&title=${_title}&price=${_price}&currency=${_currency}&country=${_country}&previewLn=${_previewLn}`;
         const response = await fetch(query);
         if(response.ok) {
             const stream = await response.json();
