@@ -1,5 +1,6 @@
 <script>
     import globals from "$lib/variables.js";
+    import {addProduct} from "$lib/api/api_querys.js";
 
     let searchProducts, searching;
     let productObjects;
@@ -22,29 +23,15 @@
         const country = resultObject.data.country;
         const products = resultObject.data.products;
         productObjects = products.map((product) => {
-            let productObject = Object.create(PRODUCT);
-            productObject.init(product.asin, product.product_title, product.product_price, product.currency, country, product.product_photo);
-            return productObject;
+            return globals.getProductObject(product.asin, product.product_title, product.product_price, product.currency, country, product.product_photo);
         });
     }
-    function addProduct() {
-        console.log(this.value)
-    }
-
-    const PRODUCT = {
-        asin : "",
-        title : "",
-        price : "",       // As string -> converting in db
-        currency : "",
-        country : "",
-        previewLn : "",
-        init(asin, title, price, currency, country, previewLn) {
-            this.asin = asin;
-            this.title = title;
-            this.price = price;
-            this.currency = currency;
-            this.country = country;
-            this.previewLn = previewLn;
+    async function newProduct() {
+        const product = productObjects.filter((product) => product.asin == this.value);
+        let response = await addProduct(product[0].asin, product[0].title, product[0].price, product[0].currency, product[0].country, product[0].previewLn);
+        globals.globalAlert(response);
+        if(response == "Product has been added to inventory!") {
+            globals.setnewProduct(true);
         }
     }
 </script>
@@ -61,7 +48,7 @@
                         <p>{product.price}</p>
                     </div>
                     <div class="flex w-full justify-end">
-                        <button class="btn btn-primary" on:click={addProduct} value="{product}">Add</button>
+                        <button class="btn btn-primary" on:click={newProduct} value={product.asin}>Add</button>
                     </div>
                 </div>
             </div>

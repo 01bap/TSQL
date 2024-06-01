@@ -4,10 +4,15 @@ class globalVar {
     constructor() {
         this.alertFadeIn = 1;            // In sec
         this.alertLiveTime = 3000;           // In millisec
+        this.inventory = writable(new Array());     // Contains the list of the inventory
         this.detailedProduct = writable("");     // Contains asin (Primary)
         this.searching = writable(false);
         this.searchProducts = writable(null);        // Object of returned researched products
         this.searchProduct = writable(null);        // Contains to be stored product as new object
+        this.newProduct = writable(true);       // For first initialization
+    }
+    setinventory(inventory) {
+        this.inventory.set(inventory);
     }
     setdetailedProduct(detailedProduct) {
         this.detailedProduct.set(detailedProduct);
@@ -21,8 +26,16 @@ class globalVar {
     setsearchProduct(searchProduct) {
         this.searchProduct.set(searchProduct);
     }
+    setnewProduct(newProduct) {
+        this.newProduct.set(newProduct);
+    }
 
-    globalAlert(errormsg) {
+    getProductObject(asin, title, price, currency, country, previewLn) {
+        const productObject = Object.create(PRODUCT);
+        productObject.init(asin, title, price, currency, country, previewLn);
+        return productObject;
+    }
+    globalAlert(msg) {
         try {
             document.getElementById("globalAlertMessage").remove();
         } catch (error) {
@@ -48,7 +61,7 @@ class globalVar {
         alert.style.backgroundColor = "rgba(200, 10, 10, 0.8)";
         alert.style.transition = `transform ${this.alertFadeIn}s`;
 
-        alert.innerHTML = errormsg;
+        alert.innerHTML = msg;
 
         body.appendChild(alert);
 
@@ -63,5 +76,22 @@ class globalVar {
         }, this.alertLiveTime);
     }
 }
+const PRODUCT = {
+    asin : "",
+    title : "",
+    price : "",       // As string -> converting in db
+    currency : "",
+    country : "",
+    previewLn : "",
+    init(asin, title, price, currency, country, previewLn) {
+        this.asin = asin;
+        this.title = title;
+        this.price = price;
+        this.currency = currency;
+        this.country = country;
+        this.previewLn = previewLn;
+    }
+}
+
 const globals = new globalVar();
 export default globals; 

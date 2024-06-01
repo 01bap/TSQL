@@ -1,6 +1,14 @@
 <script>
+    import globals from "$lib/variables";
+    import {testConnection} from "$lib/api/api_querys.js";
+    import { onMount } from "svelte";
     import Inventory from "$lib/components/Inventory.svelte";
     import MainContent from "$lib/components/MainContent.svelte";
+
+    onMount(async () => {
+        let response = await testConnection();
+        globals.globalAlert(response);
+    });
 </script>
 
 <div class="w-screen h-screen grid" id="Bestandslager">

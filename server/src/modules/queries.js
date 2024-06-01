@@ -1,19 +1,17 @@
-const InventoryInterface = "Rodriguez_Inventory";
-const ProductInterface = "Rodriguez_Product";
+const ProductInterface = "Rodriguez_product";
+const InventoryInterface = "Rodriguez_inventory";
+const SPCreateTables = "Rodriguez_createTables";
+const SPAddProduct = "Rodriguez_addProduct";
 
 const queries = {
-    createTables: `CREATE TABLE ${InventoryInterface} (
-        id          int not null PRIMARY KEY,
-        pid         int not null FOREIGN KEY REFERENCES ${ProductInterface} (id),
-        timeStamp   smalldatetime not null,
-    );`,        // Creating Tables remotly is not allowed
-    getInventory: `SELECT * FROM ${InventoryInterface};`,
-    createProduct: `CREATE TABLE ${ProductInterface} (
-        id          int not null PRIMARY KEY,
-        name        varchar,
-        timeStamp   smalldatetime not null,
-    );`,        // Creating Tables remotly is not allowed
+    productTableName: ProductInterface,
+    inventoryTableName: InventoryInterface,
+    SPcreateTables: SPCreateTables,
+    SPaddProduct: SPAddProduct,
+    testConnection: `select * from ${ProductInterface} join ${InventoryInterface} i on i.product_id = asin;`,
     getProduct: `SELECT * FROM ${ProductInterface};`,
+    
+    getInventory: `SELECT * FROM ${InventoryInterface};`,
 };
 
 module.exports = queries;
