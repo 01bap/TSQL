@@ -82,3 +82,16 @@ export async function getProducts() {
         console.error(error);
     }
 }
+export async function getPriceAndCount(asin) {
+    try {
+        const _asin = encodeURIComponent(asin);
+        const query = `http://localhost:3000/api/getPriceAndCount?asin=${_asin}`;
+        const response = await fetch(query);
+        if(response.ok) {
+            const stream = await response.json();
+            return stream[0];
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}

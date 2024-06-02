@@ -102,6 +102,23 @@ app.get('/api/getProducts', async (req, res) => {
     await mssql.close();
   }
 });
+app.get('/api/getPriceAndCount', async (req, res) => {
+  try {
+    await mssql.connect(config);
+
+    let asin = req.query.asin || 'asin';
+    asin = decodeURIComponent(asin);
+
+    const result = await mssql.query(`SELECT fullprice, Count FROM ${queries.FGetPriceAndCount}('${asin}');`);
+    res.json(result.recordset);
+  } catch (error) {
+    console.error('SQL error:', error);
+    res.status(500).send('Internal server error');    // Terminates the server
+  } finally {
+    await mssql.close();
+  }
+});
+
 
 
 app.get('/api/getInventory', async (req, res) => {
