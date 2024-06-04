@@ -11,7 +11,13 @@
                 throw "Please enter a search query!";
             globals.setsearching(true);
             let response = await searchProducts(queryInput.value, countryInput.value, pageInput.value);
-            globals.setsearchProducts(response);
+            console.log(response)
+            if(response.extra) {        // Switching between apis
+                globals.setcountry(response.extra);
+                globals.setsearchProducts(response.response);
+            } else {
+                globals.setsearchProducts(response);
+            }
             globals.setsearching(false);
         } catch (error) {
             globals.globalAlert(error);

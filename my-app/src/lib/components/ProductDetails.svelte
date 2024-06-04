@@ -15,6 +15,9 @@
     let price = null;
     let country = null;
 
+    let add = false;
+    let remove = false;
+
     globals.detailedProduct.subscribe((value) => {
         detailedProduct = value;
     });
@@ -26,6 +29,27 @@
         toggleCard(detailedProduct);
         updateCard(detailedProduct);
     }
+
+    function AddProduct() {
+        if(!add) {
+            add = true;
+            console.log(detailedProduct)
+            // Add one to Storage
+            setTimeout(() => {
+                add = false;
+            }, 1000);
+        }
+    }
+    function RemoveProduct() {
+        if(!remove) {
+            remove = true;
+            console.log(detailedProduct),
+            setTimeout(() => {
+                remove = false;
+            }, 1000);
+        }
+    }
+
     onMount(() => {
         detailCard = document.getElementById("ProductDetailsParent");
         closePanel = document.getElementById("closePanel");
@@ -48,7 +72,6 @@
         price = response.fullprice;
         productCount = response.Count;
     }
-
     function toggleCard(_asin) {
         if(detailCard == null || closePanel == null)
             return -1;
@@ -80,10 +103,28 @@
             </div>
             <div id="ProductDetailDetails" class="bg-base p-1">
                 <h2 class="w-full border-b-2 p-1 text-lg">Details:</h2>
-                <div class="p-1">
-                    <p>Product is from: {country}</p>
-                    <p>Number of Products: {productCount}</p>
-                    <p>Price: {price}</p>
+                <div class="flex w-full">
+                    <div class="p-1 grow">
+                        <p>Product is from: {country}</p>
+                        <p>Number of Products: {productCount}</p>
+                        <p>Price: {price}</p>
+                    </div>
+                    <div class="flex flex-col shrink gap-1 p-1">
+                        <button class="btn btn-success font-bold" on:click={AddProduct}>
+                            {#if add}
+                                loading...
+                            {:else}
+                                Add +1
+                            {/if}
+                        </button>
+                        <button class="btn btn-accent font-bold" on:click={RemoveProduct}>
+                            {#if remove}
+                                loading...
+                            {:else}
+                                Remove -1
+                            {/if}
+                        </button>
+                    </div>
                 </div>
             </div>
         {/if}

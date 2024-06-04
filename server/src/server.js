@@ -76,7 +76,7 @@ app.get('/api/addProduct', async (req, res) => {
 
     request.input('asin', mssql.VarChar, asin);
     request.input('title', mssql.Text, title);
-    request.input('price', mssql.Money, price);
+    request.input('price', mssql.VarChar, price);     // Parsed as String because of Validation Errors (Money)
     request.input('currency', mssql.VarChar, currency);
     request.input('country', mssql.Char, country);
     request.input('previewLn', mssql.Text, previewLn);

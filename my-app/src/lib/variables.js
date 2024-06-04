@@ -8,6 +8,7 @@ class globalVar {
         this.detailedProduct = writable("");     // Contains asin (Primary)
         this.searching = writable(false);
         this.searchProducts = writable(null);        // Object of returned researched products
+        this.country = writable(null);          // Stores country seperatly for other api
         this.searchProduct = writable(null);        // Contains to be stored product as new object
         this.newProduct = writable(true);       // For first initialization
     }
@@ -23,6 +24,9 @@ class globalVar {
     setsearchProducts(searchProducts) {
         this.searchProducts.set(searchProducts);
     }
+    setcountry(country) {
+        this.country.set(country);
+    }
     setsearchProduct(searchProduct) {
         this.searchProduct.set(searchProduct);
     }
@@ -32,7 +36,7 @@ class globalVar {
 
     getProductObject(asin, title, price, currency, country, previewLn) {
         const productObject = Object.create(PRODUCT);
-        productObject.init(asin, title, price, currency, country, previewLn);
+        productObject.init(asin, title, price, currency, (country == null) ? this.country : country, previewLn);
         return productObject;
     }
     globalAlert(msg) {

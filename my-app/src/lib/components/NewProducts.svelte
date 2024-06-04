@@ -25,6 +25,11 @@
         productObjects = products.map((product) => {
             return globals.getProductObject(product.asin, product.product_title, product.product_price, product.currency, country, product.product_photo);
         });
+        // const country = null;
+        // const products = resultObject.data;
+        // productObjects = products.map((product) => {
+        //     return globals.getProductObject(product.product_id, product.product_title, product.offer.price, null, country, product.product_photos[0]);
+        // });
     }
     async function newProduct() {
         const product = productObjects.filter((product) => product.asin == this.value);
