@@ -36,7 +36,9 @@ export async function testSP() {
     return -1;
 }
 
-// REAL
+
+
+
 export async function testConnection() {
     try {
         const response = await fetch('http://localhost:3000/api/testConnection');
@@ -86,6 +88,32 @@ export async function getPriceAndCount(asin) {
     try {
         const _asin = encodeURIComponent(asin);
         const query = `http://localhost:3000/api/getPriceAndCount?asin=${_asin}`;
+        const response = await fetch(query);
+        if(response.ok) {
+            const stream = await response.json();
+            return stream[0];
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+export async function plusProduct(asin) {
+    try {
+        const _asin = encodeURIComponent(asin);
+        const query = `http://localhost:3000/api/addToInventory?asin=${_asin}`;
+        const response = await fetch(query);
+        if(response.ok) {
+            const stream = await response.json();
+            return stream[0];
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+export async function minusProduct(asin) {
+    try {
+        const _asin = encodeURIComponent(asin);
+        const query = `http://localhost:3000/api/removeFromInventory?asin=${_asin}`;
         const response = await fetch(query);
         if(response.ok) {
             const stream = await response.json();

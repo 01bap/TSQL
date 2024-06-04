@@ -8,6 +8,8 @@
     onMount(async () => {
         let response = await testConnection();
         globals.globalAlert(response);
+        globals.setnewProduct(true);        // Update inventory
+        globals.checkDatabase();        // Runs recursivly
     });
 </script>
 

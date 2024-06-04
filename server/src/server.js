@@ -118,6 +118,45 @@ app.get('/api/getPriceAndCount', async (req, res) => {
     await mssql.close();
   }
 });
+app.get('/api/addToInventory', async (req, res) => {
+  try {
+    await mssql.connect(config);
+    const request = new mssql.Request();
+
+    let asin = req.query.asin || 'asin';
+    asin = decodeURIComponent(asin);
+
+    request.input('asin', mssql.VarChar, asin);
+
+    let result = await request.execute(queries.SPAddToInventory);
+    res.json(result.recordset)
+  } catch (err) {
+      console.error('SQL error', err);
+      res.status(500).send(err.message);
+  } finally {
+      await mssql.close();
+  }
+});
+app.get('/api/removeFromInventory', async (req, res) => {
+  try {
+    await mssql.connect(config);
+    const request = new mssql.Request();
+
+    let asin = req.query.asin || 'asin';
+    asin = decodeURIComponent(asin);
+
+    request.input('asin', mssql.VarChar, asin);
+
+    let result = await request.execute(queries.SPRemoveFromInventory);
+    res.json(result.recordset)
+  } catch (err) {
+      console.error('SQL error', err);
+      res.status(500).send(err.message);
+  } finally {
+      await mssql.close();
+  }
+});
+
 
 
 

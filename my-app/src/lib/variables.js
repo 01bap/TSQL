@@ -2,15 +2,19 @@ import {writable} from "svelte/store";
 
 class globalVar {
     constructor() {
+        // Constants
         this.alertFadeIn = 1;            // In sec
         this.alertLiveTime = 3000;           // In millisec
+        this.recall = 30000;            // In millisec (Interval to check the db)
+        this.update = false;
+        // Variables
         this.inventory = writable(new Array());     // Contains the list of the inventory
         this.detailedProduct = writable("");     // Contains asin (Primary)
         this.searching = writable(false);
         this.searchProducts = writable(null);        // Object of returned researched products
         this.country = writable(null);          // Stores country seperatly for other api
         this.searchProduct = writable(null);        // Contains to be stored product as new object
-        this.newProduct = writable(true);       // For first initialization
+        this.newProduct = writable(false);       // For first initialization
     }
     setinventory(inventory) {
         this.inventory.set(inventory);
@@ -32,6 +36,7 @@ class globalVar {
     }
     setnewProduct(newProduct) {
         this.newProduct.set(newProduct);
+        this.update = newProduct;
     }
 
     getProductObject(asin, title, price, currency, country, previewLn) {
@@ -78,6 +83,13 @@ class globalVar {
                 alert.remove();
             }, this.alertFadeIn * 1000 + 10);
         }, this.alertLiveTime);
+    }
+    checkDatabase() {
+        setTimeout(() => {
+            if(!this.update)
+                this.setnewProduct(true);
+            this.checkDatabase();
+        }, this.recall);
     }
 }
 const PRODUCT = {

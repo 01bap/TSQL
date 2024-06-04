@@ -31,10 +31,21 @@
 <div class="relative w-full h-full p-4" id="InventoryParent">
     <div class="h-full border-2 rounded p-1 md:max-w-72 flex flex-col" id="InventoryContainer">
         <h1 class="border-b p-1 font-bold text-primary">Inventory</h1>
-        <div class="h-full w-full overflow-y-scroll p-1 flex flex-col gap-1" id="Inventory">
-            {#each products as product}
-                <Product previewLn={product.previewLn} title={product.title} asin={product.asin}/>
-            {/each}
+        <div class="h-full w-full overflow-y-scroll p-1 flex flex-col gap-1 relative" id="Inventory">
+            <!-- Loading animation -->
+            {#if newProduct}
+                <div class="w-full h-8 grid place-items-center absolute">
+                    <div class="loading text-primary"></div>
+                </div>
+            {/if}
+            <!-- Prodcuts -->
+            {#if products.length == 0}
+                <p class="w-full p-2">Inventory is empty</p>
+            {:else}
+                {#each products as product}
+                    <Product previewLn={product.previewLn} title={product.title} asin={product.asin}/>
+                {/each}
+            {/if}
         </div>
     </div>
 </div>

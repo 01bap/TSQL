@@ -1,6 +1,6 @@
 <script>
     import { onMount } from "svelte";
-    import {getPriceAndCount} from "$lib/api/api_querys.js";
+    import {getPriceAndCount, plusProduct, minusProduct} from "$lib/api/api_querys.js";
     import globals from "$lib/variables.js";
 
     let detailedProduct;        // For asin
@@ -30,23 +30,22 @@
         updateCard(detailedProduct);
     }
 
-    function AddProduct() {
+    async function AddProduct() {
         if(!add) {
             add = true;
-            console.log(detailedProduct)
-            // Add one to Storage
-            setTimeout(() => {
-                add = false;
-            }, 1000);
+            let response = await plusProduct(detailedProduct);      // Add one to storage
+            // Message ignored
+            await updateCard(detailedProduct)
+            add = false;
         }
     }
-    function RemoveProduct() {
+    async function RemoveProduct() {
         if(!remove) {
             remove = true;
-            console.log(detailedProduct),
-            setTimeout(() => {
-                remove = false;
-            }, 1000);
+            let response = await minusProduct(detailedProduct);     // Remove from storage
+            // Message ignored
+            await updateCard(detailedProduct)
+            remove = false;
         }
     }
 
@@ -64,13 +63,18 @@
         productCount = null;        // Reseting card information
         let displayProductObject = inventory.find((product) => product.asin == _asin);
         let response = await getPriceAndCount(_asin);
-
-        previewLn = displayProductObject.previewLn;
-        title = displayProductObject.title;
-        country = displayProductObject.country;
-
-        price = response.fullprice;
-        productCount = response.Count;
+        if(response == undefined) {
+            globals.globalAlert("Product deleted from inventory!");
+            globals.setdetailedProduct("");     // Close detailCard
+            globals.setnewProduct(true);        // Update inventory immediately
+        } else {
+            previewLn = displayProductObject.previewLn;
+            title = displayProductObject.title;
+            country = displayProductObject.country;
+    
+            price = response.fullprice;
+            productCount = response.Count;
+        }
     }
     function toggleCard(_asin) {
         if(detailCard == null || closePanel == null)
